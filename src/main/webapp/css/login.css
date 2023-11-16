@@ -1,0 +1,53 @@
+@charset "ISO-8859-1";
+
+.body{
+	background-color:black;
+}
+
+.title {
+    text-align: center;
+    font-size: 70px;
+    color: white;
+}
+
+/* Apply styles to the container */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+     /* Background color for the container */
+}
+
+/* Apply styles to the box */
+.box {
+    text-align: center;
+    background-color: #ffffff; /* Background color for the box */
+    padding: 80px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Box shadow for a subtle effect */
+}
+
+/* Style the heading */
+h1 {
+    font-size: 30px;
+    padding: 10;
+    weight:200;
+}
+
+/* Style the paragraph */
+p {
+    margin: 10px 0;
+}
+
+/* Style the button */
+button {
+    background-color: #007bff; /* Button background color */
+    color: white; /* Button text color */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
