@@ -114,4 +114,21 @@ h6#given_name {
   /* Change color on hover if desired */
 }
 
+/* CSS for the Past Reservation button */
+/* CSS for the Past Reservation button within the 'past-reservation' div */
+.past-reservation .res#pastRes {
+  background-color: #007bff; /* Change the background color to blue */
+  color: #fff; /* Set text color to white */
+  border: none; /* Remove default button border */
+  padding: 10px 20px; /* Adjust padding as needed */
+  border-radius: 5px; /* Add border radius for a rounded look */
+  cursor: pointer; /* Add a pointer cursor on hover */
+}
+
+/* Optional: Hover effect */
+.past-reservation .res#pastRes:hover {
+  opacity: 0.8; /* Reduce opacity on hover for a visual effect */
+  /* Additional hover effects if needed */
+}
+
 

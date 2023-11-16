@@ -76,6 +76,7 @@
 
 <link rel="stylesheet" href="../css/nav.css">
 <link rel="stylesheet" href="../css/home.css">
+<link rel="stylesheet" href=",,/css/button.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
@@ -233,7 +234,10 @@
             <label for="message">Message:</label>
             <textarea id="message" name="message" rows="4"></textarea>
 	         <input type="hidden" id="usernameField" name="usernameField" value="" >
-			    <input type="submit" name="submit" id="submit" value="Submit">
+	       <div class="sub-bttn" style="display: flex; justify-content: center;">
+               <input type="submit" name="submit" id="submit" value="Submit" style="background-color: green; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; text-align: center;">
+           </div>
+			 
         </form>
  
 		
@@ -241,12 +245,21 @@
  
  
    </div>
+   
  </section>
  
-<form class="mb-5" method="post" id="myReservation"   onclick="document.getElementById('reservationsList').style.display='block'" >
+ <br><br><br><br><br>
+ 
+ <div class = "past-reservation"  style="display: flex; justify-content: center;">
+ 
+   <form class="mb-5" method="post" id="myReservation"   onclick="document.getElementById('reservationsList').style.display='block'" >
 		<input type="hidden" id="usernameField2" name="usernameField2" value="" >
-		<input type="submit" class="res" id="pastRes" name= "pastRes" value="Past Reservation" >
+		<input type="submit" class="res" id="pastRes" name= "pastRes" value="Past Reservation" style="background-color:	#1434A4; color: white; border: none; padding: 12px 30px; border-radius: 5px; cursor: pointer; text-align: center; font-size:20px;">
 	</form>
+ 
+ </div>
+ 
+  
  
  
  <% if (request.getParameter("usernameField2") != null) { %>
@@ -307,6 +320,72 @@
  
  <% } %>
  
+ <br><br><br>
+ 
+ <div class="future-reservation" style="display: flex; justify-content: center;">
+
+    <form class="mb-5" method="post" id="myFutureReservation" onclick="document.getElementById('futureReservationsList').style.display='block'">
+        <input type="hidden" id="usernameField2" name="usernameField2" value="">
+        <input type="submit" class="res" id="futureRes" name="futureRes" value="Future Reservation" style="background-color: #1434A4; color: white; border: none; padding: 12px 30px; border-radius: 5px; cursor: pointer; text-align: center; font-size: 20px;">
+    </form>
+
+</div>
+
+<% if (request.getParameter("usernameField2") != null) { %>
+<div class="future-reservationsList" id="futureReservationsList" style="display: none;">
+
+    <table>
+        <tr>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Location</th>
+            <th>Registration</th>
+            <th>Mileage</th>
+            <th>Message</th>
+        </tr>
+
+        <%
+        try {
+            connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
+
+            String selectQuery = "SELECT * FROM future_vehicle_service WHERE username = ?";
+            PreparedStatement preparedStatement1 = connection.prepareStatement(selectQuery);
+            preparedStatement1.setString(1, request.getParameter("usernameField2"));
+
+            ResultSet resultSet = preparedStatement1.executeQuery();
+
+            while (resultSet.next()) {
+                String date = resultSet.getString("date");
+                String time = resultSet.getString("time");
+                String location = resultSet.getString("location");
+                String vehicle_no = resultSet.getString("vehicle_no");
+                String mileage = resultSet.getString("mileage");
+                String message = resultSet.getString("message");
+
+                %>
+                <tr>
+                    <td><%= date %></td>
+                    <td><%= time %></td>
+                    <td><%= location %></td>
+                    <td><%= vehicle_no %></td>
+                    <td><%= mileage %></td>
+                    <td><%= message %></td>
+                </tr>
+                <%
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
+        }
+        %>
+
+    </table>
+
+</div>
+<% } %>
  
 </body>
 </html>
