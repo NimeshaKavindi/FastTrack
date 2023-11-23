@@ -1,5 +1,6 @@
 package com.services.jsp;
 import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,7 +12,7 @@ import java.util.Date;
 
 public class ServiceDAO {
 	
-	String dbUrl = "jdbc:mysql://51.132.137.223:3306/isec_assessment2";
+	String dbUrl = "jdbc:mysql://172.187.178.153:3306/isec_assessment2";
 	String dbUser = "isec";
 	String dbPassword = "EUHHaYAmtzbv";
    

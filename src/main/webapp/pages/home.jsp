@@ -8,7 +8,7 @@
 <%@ page import="java.io.InputStream, java.io.IOException" %>
 <%@ page import="java.util.Properties" %>
 <%
-		String dbUrl = "jdbc:mysql://51.132.137.223:3306/isec_assessment2";
+		String dbUrl = "jdbc:mysql://172.187.178.153:3306/isec_assessment2";
 		String dbUser = "isec";
 		String dbPassword = "EUHHaYAmtzbv";
 		Connection connection = null;
@@ -262,8 +262,8 @@
   
  
  
- <% if (request.getParameter("usernameField2") != null) { %>
-<div class="reservationsList">
+ <% if (request.getParameter("pastRes") != null) { %>
+<div class="past-reservationsList" id="pastReservationsList" style="display: block;">
 
  <table>
     <tr>
@@ -279,11 +279,11 @@
     try {
         connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
 
-        String selectQuery = "SELECT * FROM vehicle_service WHERE username = ?";
+        String selectQuery = "SELECT * FROM vehicle_service WHERE username = ? AND date < CURDATE()";
         PreparedStatement preparedStatement1 = connection.prepareStatement(selectQuery);
         preparedStatement1.setString(1, request.getParameter("usernameField2"));
 
-        ResultSet resultSet = preparedStatement.executeQuery();
+        ResultSet resultSet = preparedStatement1.executeQuery();
 
         while (resultSet.next()) {
             String date = resultSet.getString("date");
@@ -342,6 +342,7 @@
             <th>Registration</th>
             <th>Mileage</th>
             <th>Message</th>
+            <th>Delete</th>
         </tr>
 
         <%
