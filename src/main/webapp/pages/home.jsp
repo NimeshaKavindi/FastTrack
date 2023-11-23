@@ -331,8 +331,8 @@
 
 </div>
 
-<% if (request.getParameter("usernameField2") != null) { %>
-<div class="future-reservationsList" id="futureReservationsList" style="display: none;">
+<% if (request.getParameter("futureRes") != null) { %>
+<div class="future-reservationsList" id="futureReservationsList" style="display: block;">
 
     <table>
         <tr>
@@ -350,10 +350,10 @@
             connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
 
             String selectQuery = "SELECT * FROM future_vehicle_service WHERE username = ?";
-            PreparedStatement preparedStatement1 = connection.prepareStatement(selectQuery);
-            preparedStatement1.setString(1, request.getParameter("usernameField2"));
+            PreparedStatement preparedStatement2 = connection.prepareStatement(selectQuery);
+            preparedStatement2.setString(1, request.getParameter("usernameField2"));
 
-            ResultSet resultSet = preparedStatement1.executeQuery();
+            ResultSet resultSet = preparedStatement2.executeQuery();
 
             while (resultSet.next()) {
                 String date = resultSet.getString("date");
