@@ -346,6 +346,7 @@
 
     <table>
         <tr>
+            <th>Booking_id</th>
             <th>Date</th>
             <th>Time</th>
             <th>Location</th>
@@ -376,6 +377,7 @@
 
                 %>
                 <tr>
+                    <td><%= booking_id %></td>
                     <td><%= date %></td>
                     <td><%= time %></td>
                     <td><%= location %></td>
