@@ -7,7 +7,7 @@
 <%@ page import="com.services.jsp.*" %>
 <%@ page import="java.io.InputStream, java.io.IOException" %>
 <%@ page import="java.util.Properties" %>
-<%@ page import="java.sql.*, com.services.jsp.*" %>
+
 <%
 		String dbUrl = "jdbc:mysql://172.187.178.153:3306/isec_assessment2";
 		String dbUser = "isec";
@@ -276,14 +276,13 @@
 
  <table>
     <tr>
-        <th>Booking_ID</th>
         <th>Date</th>
         <th>Time</th>
         <th>Location</th>
         <th>Registration</th>
         <th>Mileage</th>
         <th>Message</th>
-        <th>Delete</th>
+        <th>Done</th>
     </tr>
     
     <%
@@ -297,7 +296,6 @@
         ResultSet resultSet = preparedStatement1.executeQuery();
 
         while (resultSet.next()) {
-        	String booking_id = resultSet.getString("booking_id");
             String date = resultSet.getString("date");
             String time = resultSet.getString("time");
             String location = resultSet.getString("location");
@@ -306,21 +304,14 @@
             String message = resultSet.getString("message");
 
             %>
-            <tr class="invisible-row" onmouseover="this.classList.add('hovered')" onmouseout="this.classList.remove('hovered')">
-                <td><%=booking_id %></td>
+            <tr>
                 <td><%= date %></td>
                 <td><%= time %></td>
                 <td><%= location %></td>
                 <td><%= vehicle_no %></td>
                 <td><%= mileage %></td>
                 <td><%= message %></td>
-                 <td>
-                    <form method="post" action="delete_reservation.jsp">
-                        <input type="hidden" name="deleteID" value="<%= booking_id %>">
-                        <input type="submit" name="delete" value="Delete" style="background-color:red;">
-                    </form>
-                </td>
-            </tr>
+                <td><input type="submit" class="done" id="done" name= "done" value="Done" style="background-color:	green; color: white; border: none; padding: 5px 8px; border-radius: 5px; cursor: pointer; text-align: center; font-size:10px;">            </tr>
             <%
         }
     } catch (Exception e) {
@@ -416,4 +407,3 @@
  
 </body>
 </html>
-
