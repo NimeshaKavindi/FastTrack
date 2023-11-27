@@ -76,7 +76,14 @@
 
 <link rel="stylesheet" href="../css/nav.css">
 <link rel="stylesheet" href="../css/home.css">
-<link rel="stylesheet" href=",,/css/button.css">
+ 
+ <style>
+ .invisible-row.hovered {
+    display: table-row;
+}n
+ 
+ 
+ </style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
@@ -111,11 +118,12 @@
                 document.getElementById('given_name').textContent = given_name;
                 document.getElementById('email').textContent = email;
                 document.getElementById('phone').textContent = phone;
+                document.getElementById('usernameField').value = username;
                 document.getElementById('usernameField2').value = username;
                 
                 document.getElementById('submit').addEventListener('click', function () {
                     // Set the username as a hidden field value in the form
-                    document.getElementById('usernameField').value = username;
+                    document.getElementById('usernameField2').value = username;
                 });
                 
             })
@@ -294,7 +302,7 @@
             String message = resultSet.getString("message");
 
             %>
-            <tr>
+            <tr class="invisible-row" onmouseover="this.classList.add('hovered')" onmouseout="this.classList.remove('hovered')">
                 <td><%= date %></td>
                 <td><%= time %></td>
                 <td><%= location %></td>
@@ -332,7 +340,7 @@
 </div>
 
 <% if (request.getParameter("futureRes") != null) { %>
-<div class="future-reservationsList" id="futureReservationsList" style="display: block;">
+<div class="future-reservationsList" id="futureReservationsList" style="display:block;">
 
     <table>
         <tr>
@@ -349,13 +357,14 @@
         try {
             connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
 
-            String selectQuery = "SELECT * FROM future_vehicle_service WHERE username = ?";
-            PreparedStatement preparedStatement2 = connection.prepareStatement(selectQuery);
-            preparedStatement2.setString(1, request.getParameter("usernameField2"));
+            String selectQuery = "SELECT * FROM vehicle_service WHERE username = ?AND date > CURDATE()";
+            PreparedStatement preparedStatement1 = connection.prepareStatement(selectQuery);
+            preparedStatement1.setString(1, request.getParameter("usernameField2"));
 
-            ResultSet resultSet = preparedStatement2.executeQuery();
+            ResultSet resultSet = preparedStatement1.executeQuery();
 
             while (resultSet.next()) {
+            	String booking_id = resultSet.getString("booking_id");
                 String date = resultSet.getString("date");
                 String time = resultSet.getString("time");
                 String location = resultSet.getString("location");
@@ -371,6 +380,12 @@
                     <td><%= vehicle_no %></td>
                     <td><%= mileage %></td>
                     <td><%= message %></td>
+                     <td>
+                <form method="post" action="delete_reservation.jsp">
+                    <input type="hidden" name="deleteID" value="<%= booking_id %>">
+                    <input type="submit" name="delete" value="Delete" style="background-color:red;">
+                </form>
+            </td>
                 </tr>
                 <%
             }
